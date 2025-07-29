@@ -6,6 +6,22 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 
 Releases prior to 7.0 has been removed from this file to declutter search results; see the [archived copy](https://github.com/dipdup-io/dipdup/blob/8.0.0b5/CHANGELOG.md) for the full list.
 
+## [8.4.2] - 2025-06-18
+
+### Added
+
+- config: Added `realtime` flag to datasource config to enable websockets/polling implicitly.
+
+### Fixed
+
+- cli: Skip logging indexer status if it has not changed.
+- config: Fixed `config export` command crash when `advanced.reindex` section is present in config.
+- config: Do not trigger `config_modified` reindexing when datasource URLs are updated.
+- datasources: Do not run datasources not linked to any index and without `realtime` flag set.
+- models: Fixed serializing UUIDs in `JSONField`.
+- substrate: Fixed loading type registries when specified in config.
+- substrate: Fixed processing several vector types.
+
 ## [8.4.1] - 2025-06-02
 
 ### Fixed
@@ -741,7 +757,8 @@ Releases prior to 7.0 has been removed from this file to declutter search result
 [semantic versioning]: https://semver.org/spec/v2.0.0.html
 
 <!-- Versions -->
-[Unreleased]: https://github.com/dipdup-io/dipdup/compare/8.4.1...HEAD
+[Unreleased]: https://github.com/dipdup-io/dipdup/compare/8.4.2...HEAD
+[8.4.2]: https://github.com/dipdup-io/dipdup/compare/8.4.1...8.4.2
 [8.4.1]: https://github.com/dipdup-io/dipdup/compare/8.4.0...8.4.1
 [8.4.0]: https://github.com/dipdup-io/dipdup/compare/8.3.3...8.4.0
 [8.3.3]: https://github.com/dipdup-io/dipdup/compare/8.3.2...8.3.3
