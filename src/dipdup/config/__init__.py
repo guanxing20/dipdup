@@ -414,10 +414,10 @@ class HasuraConfig:
     admin_secret: str | None = Field(default=None, repr=False)
     create_source: bool = False
     source: str = 'default'
-    select_limit: int = 1000
+    select_limit: int = 10_000
     allow_aggregations: bool = True
     allow_inconsistent_metadata: bool = False
-    camel_case: bool = False
+    camel_case: bool = True
     rest: bool = True
     http: HttpConfig | None = None
     hide_internal: bool = False
@@ -1137,9 +1137,9 @@ class DipDupConfig(InteractiveMixin):
                 string=raw_template,
             )
 
-        if missing_value := re.search(r'<*>', raw_template):
+        if missing_value := re.search(r'<[w]*>', raw_template):
             raise ConfigurationError(
-                f'`{template_config.name}` index config is missing required template value `{missing_value.group()}`'
+                f'{template_config.name} index config is missing required template value {missing_value.group(0)}'
             )
 
         json_template = orjson.loads(raw_template)

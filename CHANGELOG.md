@@ -6,6 +6,49 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 
 Releases prior to 7.0 has been removed from this file to declutter search results; see the [archived copy](https://github.com/dipdup-io/dipdup/blob/8.0.0b5/CHANGELOG.md) for the full list.
 
+## [Unreleased]
+
+## [8.5.1] - 2025-11-03
+
+### Fixed
+
+- demos: Use Etherscan v2 API endpoints in EVM templates.
+- mcp: Fixed crash when using `mcp.tool` decorator.
+- evm.node: Respect `http.batch_size` when fetching events and transactions.
+
+### Changed
+
+- cli: Don't notify about new framework versions available.
+
+## [8.5.0] - 2025-09-14
+
+### Added
+
+- database: Support running multiple indexers on different schemas in the same database.
+- env: Added `DIPDUP_NO_HOOKS` environment variable to temporary disable internal and user-defined hooks.
+- env: Added debugpy support to connect to the running indexer; enable with `DIPDUP_DEBUG` environment variable.
+- hasura: Extract table/field descriptions from models' docstrings and apply as database comments.
+
+### Fixed
+
+- config: Fixed detection of missing env variables.
+- database: Fixed `dipdup_wipe` function affecting non-public tables.
+- package: Fixed incorrect package name in replay files.
+- substrate.events: Fixed fetching events with node datasource.
+- tezos: Fixed parsing payload when model class has been modified.
+- tezos.operations: Fixed missing migration originations when enabled in `types` filter.
+
+### Changed
+
+- env: Autodetected variables `DIPDUP_CI` and `DIPDUP_DOCKER` have been replaced with `env.is_in_gha`, `env.is_in_docker` helpers.
+- http: Randomize ratelimit sleep time in 10% range.
+
+## [8.4.3] - 2025-08-13
+
+### Fixed
+
+- tezos.tzkt: Updated models to match 1.16 version of API (Seoulnet).
+
 ## [8.4.2] - 2025-06-18
 
 ### Added
@@ -757,7 +800,10 @@ Releases prior to 7.0 has been removed from this file to declutter search result
 [semantic versioning]: https://semver.org/spec/v2.0.0.html
 
 <!-- Versions -->
-[Unreleased]: https://github.com/dipdup-io/dipdup/compare/8.4.2...HEAD
+[Unreleased]: https://github.com/dipdup-io/dipdup/compare/8.5.1...HEAD
+[8.5.1]: https://github.com/dipdup-io/dipdup/compare/8.5.0...8.5.1
+[8.5.0]: https://github.com/dipdup-io/dipdup/compare/8.4.3...8.5.0
+[8.4.3]: https://github.com/dipdup-io/dipdup/compare/8.4.2...8.4.3
 [8.4.2]: https://github.com/dipdup-io/dipdup/compare/8.4.1...8.4.2
 [8.4.1]: https://github.com/dipdup-io/dipdup/compare/8.4.0...8.4.1
 [8.4.0]: https://github.com/dipdup-io/dipdup/compare/8.3.3...8.4.0

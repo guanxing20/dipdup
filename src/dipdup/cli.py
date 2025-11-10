@@ -322,13 +322,6 @@ async def cli(ctx: click.Context, config: list[str], env_file: list[str], c: lis
     # NOTE: Imports will be loaded later if needed
     _config.initialize()
 
-    # NOTE: Fire and forget, do not block instant commands
-    if not (env.TEST or env.CI or env.NO_VERSION_CHECK):
-        from dipdup._version import check_version
-
-        # FIXME: https://github.com/dipdup-io/dipdup/issues/1114; replace with `fire_and_forget` call once resolved.
-        await check_version()
-
     try:
         # NOTE: Avoid early import errors if project package is incomplete.
         # NOTE: `ConfigurationError` will be raised later with more details.
@@ -737,7 +730,7 @@ async def schema(ctx: click.Context) -> None:
             Run `dipdup schema init` or `dipdup run` to the run the indexer and it'll be initialized automatically."""
         )
 
-    from aerich import Command as AerichCommand  # type: ignore[import-untyped]
+    from aerich import Command as AerichCommand
 
     from dipdup.database import get_tortoise_config
 
@@ -768,13 +761,13 @@ def _approve_schema_after(command: click.Command) -> click.Command:
 # NOTE: Saving 0.45s on imports and hiding from reference
 if 'schema' in sys.argv:
     try:
-        from aerich.cli import cli as aerich_cli  # type: ignore[import-untyped]
+        from aerich.cli import cli as aerich_cli
 
-        schema.add_command(aerich_cli.commands['history'])
-        schema.add_command(aerich_cli.commands['heads'])
-        schema.add_command(aerich_cli.commands['migrate'])
-        schema.add_command(_approve_schema_after(aerich_cli.commands['upgrade']))
-        schema.add_command(_approve_schema_after(aerich_cli.commands['downgrade']))
+        schema.add_command(aerich_cli.commands['history'])  # type: ignore
+        schema.add_command(aerich_cli.commands['heads'])  # type: ignore
+        schema.add_command(aerich_cli.commands['migrate'])  # type: ignore
+        schema.add_command(_approve_schema_after(aerich_cli.commands['upgrade']))  # type: ignore
+        schema.add_command(_approve_schema_after(aerich_cli.commands['downgrade']))  # type: ignore
     except ImportError:
         _logger.debug('aerich is not installed, skipping database migration commands')
 

@@ -1,10 +1,9 @@
-from __future__ import annotations
-
+# NOTE: Careful there, PEP 563 annotations break `mcp` library!
+# from __future__ import annotations
 import logging
 import traceback
 from collections.abc import Awaitable
 from collections.abc import Callable
-from typing import TYPE_CHECKING
 from typing import Any
 from typing import TypeVar
 from typing import cast
@@ -21,12 +20,10 @@ from dipdup.utils import json_dumps
 _logger = logging.getLogger(__name__)
 
 
+from collections.abc import Iterable
+
 import mcp.server
 import mcp.types as types
-
-if TYPE_CHECKING:
-    from collections.abc import Iterable
-
 
 # NOTE: Global context management
 _ctx: McpContext | None = None
@@ -210,7 +207,7 @@ async def list_resource_templates() -> list[types.ResourceTemplate]:
     return []
 
 
-@server.call_tool()  # type: ignore[no-untyped-call,misc]
+@server.call_tool()  # type: ignore[misc]
 async def call_tool(name: str, arguments: dict[str, Any]) -> list[types.TextContent]:
     from mcp.shared.exceptions import McpError
     from mcp.types import ErrorData
